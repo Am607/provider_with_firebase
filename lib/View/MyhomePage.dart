@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myworks/View/TodoAddWidget.dart';
+import 'package:myworks/View/completedWork.dart';
 import 'package:myworks/View/myworkListwidget.dart';
 
 //! main page
@@ -18,9 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final tabs = [
     MyworkListWidget(),
-    Container(
-      child: Text('tab two'),
-    ),
+    CompletedWorkListwidget(),
   ];
 
   @override

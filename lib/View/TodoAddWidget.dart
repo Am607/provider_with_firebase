@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myworks/Controller/workProvider.dart';
+import 'package:myworks/Model/workModel.dart';
+import 'package:provider/provider.dart';
 
 // ! pop up screen code here
 
@@ -10,37 +13,58 @@ class TodoAddWidget extends StatefulWidget {
 }
 
 class _TodoAddWidgetState extends State<TodoAddWidget> {
+  final _formKey = GlobalKey<FormState>();
   String title = '';
   String description = '';
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      content: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
 
-        //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+          //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
-        children: [
-          Text(
-            'Addwork',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+          children: [
+            Text(
+              'Addwork',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Addworkform(
-            titleChange: (title) => setState(() => this.title = title),
-            descriptionChange: (d) => setState(() => this.description = d),
-            onSavedTodo: () {},
-          )
-        ],
+            SizedBox(
+              height: 10,
+            ),
+            Addworkform(
+              titleChange: (title) => setState(() => this.title = title),
+              descriptionChange: (d) => setState(() => this.description = d),
+              onSavedTodo: addwork,
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  void addwork() {
+    final isValid = _formKey.currentState?.validate();
+    if (isValid!) {
+      final workModel = WorkModel(
+          createdTime: DateTime.now(),
+          title: title,
+          description: description,
+          id: DateTime.now().toString());
+      final data = Provider.of<WorkProvider>(context, listen: false);
+
+      data.addWork(workModel);
+      Navigator.of(context).pop();
+    } else {
+      return;
+    }
   }
 }
 

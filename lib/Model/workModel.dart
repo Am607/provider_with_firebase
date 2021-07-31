@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myworks/Utils/utils.dart';
 
 class Work {
   static const createdTime = 'createdTime';
@@ -20,4 +21,21 @@ class WorkModel {
     required this.id,
     this.isDone = false,
   });
+
+
+  static WorkModel fromJson(Map<String, dynamic> json) => WorkModel(
+        createdTime: Utils.toDateTime(json['createdTime']),
+        title: json['title'],
+        description: json['description'],
+        id: json['id'],
+        isDone: json['isDone'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'createdTime': Utils.fromDateTimeToJson(createdTime),
+        'title': title,
+        'description': description,
+        'id': id,
+        'isDone': isDone,
+      };
 }
