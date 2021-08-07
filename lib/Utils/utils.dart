@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+import 'dart:async';
+
+import 'package:myworks/Model/workModel.dart';
 //! show snak bar message for the app
 class Utils {
   static void showsnackbar(BuildContext context, String text) {
@@ -25,6 +28,15 @@ class Utils {
   }
 
 
-  
 
+// static StreamTransformer transformer<T>(
+//           T Function(Map<dynamic, dynamic> json) fromJson) =>
+//       StreamTransformer<QuerySnapshot, List<T>>.fromHandlers(
+//         handleData: (QuerySnapshot data, EventSink<List<T>> sink) {
+//           final snaps = data.docs.map((doc) => doc.data()).toList();
+//           final objects = snaps.map((json) => fromJson(json) ).toList() ;
+
+//           sink.add(objects);
+//         },
+//       );
 }

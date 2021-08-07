@@ -53,14 +53,18 @@ class _TodoAddWidgetState extends State<TodoAddWidget> {
   void addwork() {
     final isValid = _formKey.currentState?.validate();
     if (isValid!) {
+      
       final workModel = WorkModel(
+        isDone: false,
           createdTime: DateTime.now(),
           title: title,
           description: description,
           id: DateTime.now().toString());
+
+
       final data = Provider.of<WorkProvider>(context, listen: false);
 
-      data.addWork(workModel);
+      data.addwork(workModel);
       Navigator.of(context).pop();
     } else {
       return;

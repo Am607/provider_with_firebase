@@ -3,7 +3,6 @@ import 'package:myworks/Controller/workProvider.dart';
 import 'package:myworks/View/myworkListwidget.dart';
 import 'package:provider/provider.dart';
 
-
 //! work completed page
 
 class CompletedWorkListwidget extends StatelessWidget {
@@ -18,7 +17,7 @@ class CompletedWorkListwidget extends StatelessWidget {
         //! condition
         ? Center(
             child: Text(
-              'No pending works',
+              'No Completed tasks',
               style: TextStyle(fontSize: 20),
             ),
           )
@@ -32,7 +31,7 @@ class CompletedWorkListwidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final work = workdata[index];
 
-              print(workdata[0].title);
+              // print(workdata[0].title);
 
               return WorkWidget(workModel: work);
             },

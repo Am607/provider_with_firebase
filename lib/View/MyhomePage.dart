@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myworks/Controller/firbaseApi.dart';
+import 'package:myworks/Controller/workProvider.dart';
+import 'package:myworks/Model/workModel.dart';
 import 'package:myworks/View/TodoAddWidget.dart';
 import 'package:myworks/View/completedWork.dart';
 import 'package:myworks/View/myworkListwidget.dart';
+import 'package:provider/provider.dart';
 
 //! main page
 
@@ -31,7 +36,25 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       //! body code
-      body: tabs[currentIndex],
+      body: StreamBuilder<List<WorkModel>>(
+        stream: FirebaseApi.readCollection(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+            default:
+              if (snapshot.hasError) {
+                return buildText("$snapshot");
+              } else {
+                final todos = snapshot.data;
+                final provider = Provider.of<WorkProvider>(context);
+                provider.setTodos(todos!);
+
+                return tabs[currentIndex];
+              }
+          }
+        },
+      ),
 
       //! bottom tab defind here
       bottomNavigationBar: BottomNavigationBar(
@@ -67,3 +90,32 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+Widget buildText(String text) => Center(
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 24, color: Colors.white),
+      ),
+    );
+
+
+// {
+ 
+//   "work": [
+//     {
+//       "id": "very-soft",
+//       "isDone": "true",
+//       "title": "very-soft",
+//       "createdTime": "very-soft",
+//       "description": "https://pokeapi.co/api/v2/berry-firmness/1/"
+//     },
+//      {
+//       "id": "very-soft",
+//       "isDone": "true",
+//       "title": "very-soft",
+//       "createdTime": "very-soft",
+//       "description": "https://pokeapi.co/api/v2/berry-firmness/1/"
+//     }
+    
+//   ]
+// }

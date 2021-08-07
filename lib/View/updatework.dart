@@ -4,7 +4,6 @@ import 'package:myworks/Model/workModel.dart';
 import 'package:myworks/View/TodoAddWidget.dart';
 import 'package:provider/provider.dart';
 
-
 //! update work page
 
 class EditWorkPage extends StatefulWidget {
@@ -74,8 +73,6 @@ class _EditWorkPageState extends State<EditWorkPage> {
       provider.updateTodo(widget.workModel, title, description);
 
       Navigator.of(context).pop();
-    } else {
-      return;
-    }
+    } else {}
   }
 }

@@ -34,7 +34,7 @@ class MyworkListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final work = workdata[index];
 
-              print(workdata[0].title);
+              // print(workdata[0].title);
 
               return WorkWidget(workModel: work);
             },
@@ -50,7 +50,7 @@ class WorkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(workModel.id);
+    // print(workModel.id);
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
 
@@ -87,15 +87,14 @@ class WorkWidget extends StatelessWidget {
                 Checkbox(
                   value: workModel.isDone,
                   onChanged: (_) {
-final provider =
-                      Provider.of<WorkProvider>(context, listen: false);
-                  final isDone = provider.toggleWorkStatus(workModel);
+                    final provider =
+                        Provider.of<WorkProvider>(context, listen: false);
+                    final isDone = provider.toggleWorkStatus(workModel);
 
-                  Utils.showsnackbar(
-                    context,
-                    isDone ? 'Task completed' : 'Task marked incomplete',
-                  );
-
+                    Utils.showsnackbar(
+                      context,
+                      isDone ? 'Task completed' : 'Task marked incomplete',
+                    );
                   },
                   activeColor: Theme.of(context).primaryColor,
                   checkColor: Colors.white,
@@ -131,7 +130,6 @@ final provider =
     );
   }
 
-
 //! function for delete work
   void deleteWork(BuildContext context, WorkModel workModel) {
     final data = Provider.of<WorkProvider>(context, listen: false);
@@ -139,6 +137,7 @@ final provider =
     data.removeWork(workModel);
     Utils.showsnackbar(context, "Work deleted successfully");
   }
+
 //! function update delete work
   void editWork(BuildContext context, WorkModel workModel) =>
       Navigator.of(context).push(MaterialPageRoute(
