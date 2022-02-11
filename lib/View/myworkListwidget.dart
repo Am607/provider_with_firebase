@@ -9,11 +9,9 @@ import 'package:provider/provider.dart';
 //! pending work widget
 
 class MyworkListWidget extends StatelessWidget {
-  const MyworkListWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<WorkProvider>(context);
+    final data = Provider.of<WorkProvider>(context, listen: false);
     final workdata = data.works;
 
     return workdata.isEmpty

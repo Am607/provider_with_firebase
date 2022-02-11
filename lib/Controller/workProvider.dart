@@ -16,12 +16,13 @@ class WorkProvider extends ChangeNotifier {
   List<WorkModel> get workCompleted =>
       _works.where((work) => work.isDone == true).toList();
 
-  void setTodos(List<WorkModel> workModel) =>
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
-        _works = workModel;
-        print(works);
-        notifyListeners();
-      });
+  void setTodos(List<WorkModel> workModel) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _works = workModel;
+      print(works);
+      notifyListeners();
+    });
+  }
 
   void addwork(WorkModel workModel) => FirebaseApi.createTodo(workModel);
 
